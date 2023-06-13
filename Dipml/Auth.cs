@@ -82,14 +82,16 @@ namespace Dipml
         private void button1_Click(object sender, EventArgs e)
         {
 
-            bool result = Authorization();
-            if (result == true)
-            {
-                this.Hide();
-                mainWindow.Show();
-            }
-            else
-                MessageBox.Show("неверно");
+            //bool result = Authorization();
+            //if (result == true)
+            //{
+            //    this.Hide();
+            //    mainWindow.Show();
+            //}
+            //else
+            //    MessageBox.Show("неверно");
+
+            mainWindow.Show();
         }
         private void Password_TextChanged(object sender, EventArgs e)
         {

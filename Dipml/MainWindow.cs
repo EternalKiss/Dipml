@@ -22,16 +22,12 @@ namespace Dipml
 {
     public partial class MainWindow : Form
     {
-        private const string PathToServiceAccountKeyFile = @"C:\Users\user\source\repos\Dipml\diplom-386418-8a1dca314c86.json";
-        private const string ServiceAccountEmail = "kiss-263@diplom-386418.iam.gserviceaccount.com";
-        private const string UploadFileName = "Test hello.txt";
         UserCredential credential;
         private MySqlDataAdapter MyDA = new MySqlDataAdapter();
         private BindingSource bSource = new BindingSource();
         private DataSet ds = new DataSet();
         private DataTable table = new DataTable();
         string idSelectedRow = "0";
-        static string[] Scopes = { Google.Apis.Drive.v3.DriveService.Scope.Drive };
 
 
         public MainWindow()
@@ -44,36 +40,35 @@ namespace Dipml
             DB.Connection connection = new DB.Connection();
             conn = new MySqlConnection(connection.connStr);
 
-            GetListClients();
-            GoogleDriveConnection();
+            //GetListClients();
 
-            dataGridView1.Columns[0].Visible = true;
-            dataGridView1.Columns[1].Visible = true;
-            dataGridView1.Columns[3].Visible = true;
-            dataGridView1.Columns[4].Visible = true;
+            //dataGridView1.Columns[0].Visible = true;
+            //dataGridView1.Columns[1].Visible = true;
+            //dataGridView1.Columns[3].Visible = true;
+            //dataGridView1.Columns[4].Visible = true;
 
-            dataGridView1.Columns[0].FillWeight = 15;
-            dataGridView1.Columns[1].FillWeight = 40;
-            dataGridView1.Columns[2].FillWeight = 15;
-            dataGridView1.Columns[3].FillWeight = 15;
-            dataGridView1.Columns[4].FillWeight = 15;
-
-
-            dataGridView1.Columns[0].ReadOnly = true;
-            dataGridView1.Columns[1].ReadOnly = true;
-            dataGridView1.Columns[2].ReadOnly = true;
-            dataGridView1.Columns[3].ReadOnly = true;
-            dataGridView1.Columns[4].ReadOnly = true;
+            //dataGridView1.Columns[0].FillWeight = 15;
+            //dataGridView1.Columns[1].FillWeight = 40;
+            //dataGridView1.Columns[2].FillWeight = 15;
+            //dataGridView1.Columns[3].FillWeight = 15;
+            //dataGridView1.Columns[4].FillWeight = 15;
 
 
-            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            //dataGridView1.Columns[0].ReadOnly = true;
+            //dataGridView1.Columns[1].ReadOnly = true;
+            //dataGridView1.Columns[2].ReadOnly = true;
+            //dataGridView1.Columns[3].ReadOnly = true;
+            //dataGridView1.Columns[4].ReadOnly = true;
 
-            dataGridView1.RowHeadersVisible = false;
-            dataGridView1.ColumnHeadersVisible = true;
+
+            //dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            //dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            //dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            //dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            //dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            //dataGridView1.RowHeadersVisible = false;
+            //dataGridView1.ColumnHeadersVisible = true;
         }
         public void GetListClients()
         {
@@ -86,22 +81,6 @@ namespace Dipml
             dataGridView1.DataSource = bSource;
             conn.Close();
             int count_rows = dataGridView1.RowCount - 1;
-        }
-        public void GoogleDriveConnection()
-        {
-            try
-            {
-                FileStream str = new FileStream("diplom-386418-8a1dca314c86.json", FileMode.Open, FileAccess.Read);
-                using (FileStream stream =
-                    new FileStream("diplom-386418-8a1dca314c86.json", FileMode.Open, FileAccess.Read))
-                {
-                    string credPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                    credPath = Path.Combine(credPath, ".credentials/drive-dotnet-quickstart.json");
-                    credential = GoogleWebAuthorizationBroker.AuthorizeAsync(GoogleClientSecrets.Load(stream).Secrets, Scopes, GoogleClientSecrets.Load(str).Secrets.ClientId, CancellationToken.None, new FileDataStore(credPath, true)).Result;
-                }
-            }
-            catch (Exception x)
-            { MessageBox.Show(x.Message); }
         }
 
         private void toolStripLabel1_Click(object sender, EventArgs e)
@@ -154,7 +133,8 @@ namespace Dipml
 
         private void button1_Click(object sender, EventArgs e)
         {
-           
+           Choice choice = new Choice();
+           choice.Show();
         }
 
         private void label1_Click(object sender, EventArgs e)
