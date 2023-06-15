@@ -45,13 +45,39 @@ namespace Dipml
             }
         }
 
+        void CreateFile(string file)
+        {
+            int i = 0;
+            string copyfile = file;
+            bool result = false;
+            //StreamWriter sr = new StreamWriter("savedfiles.txt");
+            //FileStream fileStream = new FileStream("savedfiles.txt", FileMode.Open);
+            while (result == false)
+            {
+                try
+                {
+                    File.Copy(file+".XLS", selectedPath + @"\"+ copyfile + ".XLS");
+                    var proc = new System.Diagnostics.Process();
+                    proc.StartInfo.FileName = selectedPath + @"\"+ copyfile + ".XLS";
+                    proc.StartInfo.UseShellExecute = true;
+                    proc.Start();
+                    //fileStream.Wri(selectedPath + @"\" + copyfile + ".XLS");
+                    //sr.WriteLine(selectedPath + @"\" + copyfile + ".XLS");
+                    //sr.Close();
+                    File.AppendAllText("savedfiles.txt", selectedPath + @"\" + copyfile + ".XLS\n");
+                    result = true;
+                }
+                catch (Exception ex)
+                {
+                    i = i + 1;
+                    copyfile = file + $"({i})";
+                }
+            }
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
-            File.Copy("balans.XLS", selectedPath+ @"\balans.XLS");
-            var proc = new System.Diagnostics.Process();
-            proc.StartInfo.FileName = selectedPath + @"\balans.XLS";
-            proc.StartInfo.UseShellExecute = true;
-            proc.Start();
+            CreateFile("balans");
         }
 
         private void Choice_Load(object sender, EventArgs e)
@@ -76,11 +102,7 @@ namespace Dipml
 
         private void button2_Click(object sender, EventArgs e)
         {
-            File.Copy("forma2.XLS", selectedPath + @"\forma2.XLS");
-            var proc = new System.Diagnostics.Process();
-            proc.StartInfo.FileName = selectedPath + @"\forma2.XLS";
-            proc.StartInfo.UseShellExecute = true;
-            proc.Start();
+            CreateFile("forma2");
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -99,29 +121,17 @@ namespace Dipml
 
         private void button3_Click(object sender, EventArgs e)
         {
-            File.Copy("forma3.XLS", selectedPath + @"\forma3.XLS");
-            var proc = new System.Diagnostics.Process();
-            proc.StartInfo.FileName = selectedPath + @"\forma3.XLS";
-            proc.StartInfo.UseShellExecute = true;
-            proc.Start();
+            CreateFile("forma3");
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            File.Copy("forma4.XLS", selectedPath + @"forma4.XLS");
-            var proc = new System.Diagnostics.Process();
-            proc.StartInfo.FileName = selectedPath + @"\forma4.XLS";
-            proc.StartInfo.UseShellExecute = true;
-            proc.Start();
+            CreateFile("forma4");
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            File.Copy("forma6.XLS", selectedPath + @"\forma6.XLS");
-            var proc = new System.Diagnostics.Process();
-            proc.StartInfo.FileName = selectedPath + @"\forma6.XLS";
-            proc.StartInfo.UseShellExecute = true;
-            proc.Start();
+            CreateFile("forma6");
         }
     }
 }

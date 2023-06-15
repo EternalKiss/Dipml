@@ -69,6 +69,20 @@ namespace Dipml
 
             //dataGridView1.RowHeadersVisible = false;
             //dataGridView1.ColumnHeadersVisible = true;
+
+            if(File.Exists("savedfiles.txt"))
+            {
+                StreamReader write = new StreamReader("savedfiles.txt");
+                string line;
+                while ((line = write.ReadLine()) != null)
+                {
+                    dataGridView1.Rows.Add(line, File.GetCreationTime(line));
+                }
+            }
+            else
+            {
+                File.Create("savedfiles.txt");
+            }
         }
         public void GetListClients()
         {
@@ -95,19 +109,18 @@ namespace Dipml
 
         private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (!e.RowIndex.Equals(-1) && !e.ColumnIndex.Equals(-1) && e.Button.Equals(MouseButtons.Right))
-            {
                 dataGridView1.CurrentCell = dataGridView1[e.ColumnIndex, e.RowIndex];
                 dataGridView1.CurrentCell.Selected = true;
                 GetSelectedIDString();
-            }
         }
+
         public void GetSelectedIDString()
         {
             string selectedRow;
             selectedRow = dataGridView1.SelectedCells[0].RowIndex.ToString();
             idSelectedRow = dataGridView1.Rows[Convert.ToInt32(selectedRow)].Cells[0].Value.ToString();
         }
+
         void DataUpdate()
         {
             conn.Open();
@@ -152,6 +165,7 @@ namespace Dipml
 
         }
 
+
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -160,6 +174,14 @@ namespace Dipml
         private void button1_Click_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            var proc = new System.Diagnostics.Process();
+            proc.StartInfo.FileName = idSelectedRow;
+            proc.StartInfo.UseShellExecute = true;
+            proc.Start();
         }
     }
 }
